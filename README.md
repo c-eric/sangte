@@ -1,2 +1,1 @@
-# sangte
-Sangté
+# Sangté
