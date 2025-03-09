@@ -44,6 +44,3 @@ Sangté is an admin-facing system that allows hospital staff to **reward blood d
    cd frontend
    npm run dev
    ```
-
-## License  
-MIT
