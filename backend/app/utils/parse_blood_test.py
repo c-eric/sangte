@@ -25,18 +25,25 @@ def parse_pdf(file):
     return all_tables
 
 
-def clean_data(tables):
+def clean_data(tables, gender):
     for i, table in enumerate(tables):
         df = pd.DataFrame(table[1:], columns=table[0])
         df.columns = df.columns.str.replace(r'\n', ' ', regex=True)
         df = df.map(lambda x: x.replace('\n', ' ').strip() if isinstance(x, str) else x)
+        if 'Reference Range (Male)' in df:
+            if gender == 'M':
+                df.rename(columns={'Reference Range (Male)': 'Reference Range'}, inplace=True)
+                df = df.drop('Reference Range (Female)', axis=1)
+            elif gender == 'F':
+                df.rename(columns={'Reference Range (Female)': 'Reference Range'}, inplace=True)
+                df = df.drop('Reference Range (Male)', axis=1)
+
         tables[i] = df
     return tables
 
-
 def process_pdf(file):
     tables = parse_pdf(file)
-    tables = clean_data(tables)
+    tables = clean_data(tables, gender='F')
     
     for i, table in enumerate(tables):
         print(table)
