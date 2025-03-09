@@ -8,7 +8,7 @@ const App = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("/api/submit-wallet", {
+      const response = await fetch("http://localhost:5000/api/submit-wallet", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ walletId }),
